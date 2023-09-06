@@ -1,5 +1,7 @@
 package roteiro5.parte1;
 
+import javax.swing.*;
+
 public class Loja {
     private String nomeFantasia;
     private String razaoSocial;
@@ -9,8 +11,17 @@ public class Loja {
     private String nomeProprietario;
 
     // Constructor
-    Loja () {
-        
+    Loja() {
+        this.nomeFantasia = JOptionPane.showInputDialog("Insira o nome fantasia");
+
+        String razaoSocial = JOptionPane.showInputDialog("Insira a razão social");
+        if (razaoSocial.equals("")){
+            this.razaoSocial = this.nomeFantasia;
+        } else {
+            this.razaoSocial = razaoSocial;
+        }
+
+        this.cnpj = JOptionPane.showInputDialog("Inisira o CNPJ");
     }
 
     // Getter and Setter
