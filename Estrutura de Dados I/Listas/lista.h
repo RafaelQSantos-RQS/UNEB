@@ -39,3 +39,19 @@ int inserir(T_lista *lista, T_Item item)
     }
     return flag;
 }
+
+int remover(T_lista *lista) {
+    int flag = 0;
+    if ((*lista).qtdeAtual > 0) {
+        (*lista).ultimo--;
+        (*lista).qtdeAtual--;
+        flag = 1;
+    }
+    return flag;
+}
+
+void imprimir_lista(T_lista *lista) {
+    for (int i = 0; i < (*lista).qtdeAtual; i++) {
+        printf("Item[%d] = %d\n",i,(*lista).dados[i].campo);
+    }
+}

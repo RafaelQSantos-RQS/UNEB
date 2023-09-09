@@ -5,13 +5,19 @@ int main()
 {
     T_lista lista;
     T_Item item;
-//    iniciarLista(&lista);
-    
+    iniciarLista(&lista);
+
     item.campo = 10;
-    lista.dados[0] = item;
+    inserir(&lista,item);
 
     item.campo = 20;
-    lista.dados[1] = item;
+    inserir(&lista,item);
 
+    printf("Teste do inserir\n");
+    imprimir_lista(&lista);
+
+    printf("Teste do remover\n");
+    remover(&lista);
+    imprimir_lista(&lista);
     return 0;
 }
