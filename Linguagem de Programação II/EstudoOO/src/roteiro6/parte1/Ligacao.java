@@ -75,7 +75,7 @@ public class Ligacao {
             int horas = Integer.parseInt(arrOfFim[0]) - Integer.parseInt(arrOfInicio[0]);
             int minutos = Integer.parseInt(arrOfFim[1]) - Integer.parseInt(arrOfInicio[1]);
             int segundos = Integer.parseInt(arrOfFim[2]) - Integer.parseInt(arrOfInicio[2]);
-            return "A duração da chamado foi de " + horas + ":" + minutos + ":" + segundos;
+            return "A duração da chamada foi de " + horas + ":" + minutos + ":" + segundos;
         }
     }
 }

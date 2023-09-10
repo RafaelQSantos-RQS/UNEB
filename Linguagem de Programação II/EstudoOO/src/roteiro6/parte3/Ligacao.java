@@ -1,4 +1,6 @@
-package roteiro6.parte2;
+package roteiro6.parte3;
+
+import javax.swing.*;
 
 public class Ligacao {
     private String numOrigem;
@@ -7,6 +9,8 @@ public class Ligacao {
     private String localDestino;
     private Tempo horarioInicio;
     private Tempo horarioFim;
+    private double custoLigacao;
+    private final double taxaPorMinuto = 1.00;
 
     public Ligacao(String numOrigem, String numDestino, String localOrigem, String localDestino, Tempo horarioInicio) {
         this.numOrigem = numOrigem;
@@ -15,6 +19,7 @@ public class Ligacao {
         this.localDestino = localDestino;
         this.horarioInicio = horarioInicio;
         this.horarioFim = null;
+        this.custoLigacao = 0;
     }
 
     public String getNumOrigem() {
@@ -73,7 +78,29 @@ public class Ligacao {
             int horas = this.horarioFim.getHora() - this.horarioInicio.getHora();
             int minutos = this.horarioFim.getMinuto() - this.horarioInicio.getMinuto();
             int segundos = this.horarioFim.getSegundo() - this.horarioInicio.getSegundo();
-            return "A duração da chamado foi de " + horas + ":" + minutos + ":" + segundos;
+            return horas + ":" + minutos + ":" + segundos;
         }
+    }
+
+    public void verificarNumero (String numero) {
+        if (this.numOrigem.equals(numero)) {
+            JOptionPane.showMessageDialog(null,"Este número é o de origem");
+        } else if (this.numDestino.equals(numero)) {
+            JOptionPane.showMessageDialog(null,"Este número é o de Destion");
+        } else {
+            JOptionPane.showMessageDialog(null,"Este número não pertence a essa ligação");
+        }
+    }
+
+    public double getcustoDaChamada () {
+        String strDuracao = duracaoDaChamada();
+        if (strDuracao.equals("A ligação ainda não foi encerrada")) {
+            return 0;
+        }
+        String [] arrDuracao = strDuracao.split(":",3);
+        double horas = Double.parseDouble(arrDuracao[0]), minutos = Double.parseDouble(arrDuracao[1]), segundos = Double.parseDouble(arrDuracao[2]);
+        if (segundos >=0) minutos++;
+        this.custoLigacao = taxaPorMinuto *(horas*60 + minutos);
+        return this.custoLigacao;
     }
 }
