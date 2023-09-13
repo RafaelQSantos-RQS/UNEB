@@ -35,5 +35,16 @@ public class Tempo {
         this.segundo = segundo;
     }
 
+    static Tempo diferencaEntreTempos (Tempo inicio,Tempo fim) {
+            int horas = fim.getHora() - inicio.getHora();
+            int minutos = fim.getMinuto() - inicio.getMinuto();
+            int segundos = fim.getSegundo() - inicio.getSegundo();
+            return new Tempo(horas,minutos,segundos);
+    }
+
+    public int quantidadeDeMinutosMaisFracao () {
+        if (this.segundo > 0) this.minuto++;
+        return this.hora*60 + this.minuto;
+    }
 
 }

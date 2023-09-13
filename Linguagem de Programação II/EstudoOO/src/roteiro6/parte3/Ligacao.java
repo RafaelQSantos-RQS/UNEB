@@ -2,6 +2,8 @@ package roteiro6.parte3;
 
 import javax.swing.*;
 
+import static roteiro6.parte3.Tempo.diferencaEntreTempos;
+
 public class Ligacao {
     private String numOrigem;
     private String numDestino;
@@ -11,6 +13,7 @@ public class Ligacao {
     private Tempo horarioFim;
     private double custoLigacao;
     private final double taxaPorMinuto = 1.00;
+    private Tempo duracao;
 
     public Ligacao(String numOrigem, String numDestino, String localOrigem, String localDestino, Tempo horarioInicio) {
         this.numOrigem = numOrigem;
@@ -20,6 +23,7 @@ public class Ligacao {
         this.horarioInicio = horarioInicio;
         this.horarioFim = null;
         this.custoLigacao = 0;
+        this.duracao = new Tempo(0,0,0);
     }
 
     public String getNumOrigem() {
@@ -68,18 +72,11 @@ public class Ligacao {
 
     public void setHorarioFim(Tempo horarioFim) {
         this.horarioFim = horarioFim;
+        this.duracao = diferencaEntreTempos(this.horarioInicio,this.horarioFim);
     }
 
-    public String duracaoDaChamada () {
-        if (this.horarioFim == null){
-            String s = "A ligação ainda não foi encerrada";
-            return s;
-        }else{
-            int horas = this.horarioFim.getHora() - this.horarioInicio.getHora();
-            int minutos = this.horarioFim.getMinuto() - this.horarioInicio.getMinuto();
-            int segundos = this.horarioFim.getSegundo() - this.horarioInicio.getSegundo();
-            return horas + ":" + minutos + ":" + segundos;
-        }
+    public Tempo getDuracao() {
+        return this.duracao;
     }
 
     public void verificarNumero (String numero) {
@@ -93,14 +90,10 @@ public class Ligacao {
     }
 
     public double getcustoDaChamada () {
-        String strDuracao = duracaoDaChamada();
-        if (strDuracao.equals("A ligação ainda não foi encerrada")) {
+        if (this.duracao == null) {
             return 0;
         }
-        String [] arrDuracao = strDuracao.split(":",3);
-        double horas = Double.parseDouble(arrDuracao[0]), minutos = Double.parseDouble(arrDuracao[1]), segundos = Double.parseDouble(arrDuracao[2]);
-        if (segundos >=0) minutos++;
-        this.custoLigacao = taxaPorMinuto *(horas*60 + minutos);
+        this.custoLigacao = taxaPorMinuto * this.duracao.quantidadeDeMinutosMaisFracao();
         return this.custoLigacao;
     }
 }
