@@ -79,13 +79,13 @@ public class Ligacao {
         return this.duracao;
     }
 
-    public void verificarNumero (String numero) {
+    public int verificarNumero (String numero) {
         if (this.numOrigem.equals(numero)) {
-            JOptionPane.showMessageDialog(null,"Este número é o de origem");
+            return 0;
         } else if (this.numDestino.equals(numero)) {
-            JOptionPane.showMessageDialog(null,"Este número é o de Destion");
+            return 1;
         } else {
-            JOptionPane.showMessageDialog(null,"Este número não pertence a essa ligação");
+            return 2;
         }
     }
 
