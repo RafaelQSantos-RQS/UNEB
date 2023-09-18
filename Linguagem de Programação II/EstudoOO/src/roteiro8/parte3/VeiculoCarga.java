@@ -1,4 +1,4 @@
-package roteiro8.parte1;
+package roteiro8.parte3;
 
 public class VeiculoCarga extends Veiculo {
     private int pesoMax;
@@ -19,6 +19,12 @@ public class VeiculoCarga extends Veiculo {
     public String getDescricao() {
         return "Placa: " + this.getPlaca() +
                 "\nAno de Fabricação: " + this.getAnoFabricacao() +
-                "\nPeso Máximo: " + this.getPesoMax();
+                "\nPeso Máximo: " + this.getPesoMax() +
+                "\nPedágio: R$" + this.calcPedagio();
+    }
+    @Override
+    public double calcPedagio() {
+        super.taxaPedagio = 2.0;
+        return super.taxaPedagio * this.pesoMax;
     }
 }

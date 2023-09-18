@@ -1,6 +1,6 @@
-package roteiro8.parte1;
+package roteiro8.parte3;
 
-public class VeiculoPequeno extends Veiculo{
+public class VeiculoPequeno extends Veiculo {
     private String modelo;
 
     public VeiculoPequeno(String placa, int anoFabricacao, String modelo) {
@@ -18,6 +18,7 @@ public class VeiculoPequeno extends Veiculo{
     public String getDescricao() {
         return "Placa: " + this.getPlaca() +
                 "\nAno de Fabricação: " + this.getAnoFabricacao() +
-                "\nModelo: " + this.getModelo();
+                "\nModelo: " + this.getModelo() +
+                "\nPedágio: R$" + this.calcPedagio();
     }
 }
