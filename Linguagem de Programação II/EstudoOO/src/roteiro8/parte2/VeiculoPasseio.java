@@ -1,4 +1,4 @@
-package roteiro8.parte1;
+package roteiro8.parte2;
 
 public class VeiculoPasseio extends Veiculo {
     private int qtdeMaxPassageiros;
@@ -18,6 +18,13 @@ public class VeiculoPasseio extends Veiculo {
     public String getDescricao() {
         return "Placa: " + this.getPlaca() +
                 "\nAno de Fabricação: " + this.getAnoFabricacao() +
-                "\nQuantidade máxima de passageiros: " + this.getQtdeMaxPassageiros();
+                "\nQuantidade máxima de passageiros: " + this.getQtdeMaxPassageiros() +
+                "\nPedágio: R$" + this.calcPedagio();
+    }
+
+    @Override
+    public double calcPedagio() {
+        super.taxaPedagio = 5.00;
+        return super.taxaPedagio * this.qtdeMaxPassageiros;
     }
 }

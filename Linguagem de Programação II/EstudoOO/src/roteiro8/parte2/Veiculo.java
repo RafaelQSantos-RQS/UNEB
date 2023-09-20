@@ -1,8 +1,9 @@
-package roteiro8.parte1;
+package roteiro8.parte2;
 
 public abstract class Veiculo {
     private String placa;
     private int anoFabricacao;
+    protected double taxaPedagio = 6.00;
 
     public Veiculo(String placa, int anoFabricacao) {
         this.placa = placa.toUpperCase(); // Força a placa sempre ser upper case
@@ -24,6 +25,7 @@ public abstract class Veiculo {
     public void setAnoFabricacao(int anoFabricacao) {
         this.anoFabricacao = anoFabricacao;
     }
-
-
+    public double calcPedagio() {
+        return this.taxaPedagio;
+    }
 }
