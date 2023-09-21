@@ -1,0 +1,49 @@
+package roteiro10.parte3;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class JanelaBorderLayout_v1 extends JFrame{
+
+    private JPanel pnCabecalho;
+    private JPanel pnRodape;
+    private JPanel pnEsquerda;
+    private JPanel pnDireita;
+    private JPanel pnCentro;
+
+    public JanelaBorderLayout_v1() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Janela BorderLayout V1");
+
+        this.setLocationRelativeTo(null);
+        this.setLayout(new BorderLayout());
+        this.iniciarComponentes();
+        this.pack();
+        this.setVisible(true);
+
+    }
+
+    private void iniciarComponentes() {
+        // Instanciando os componentes Jpanel
+        this.pnCabecalho = new JPanel();
+        this.pnRodape = new JPanel();
+        this.pnEsquerda = new JPanel();
+        this.pnDireita = new JPanel();
+        this.pnCentro = new JPanel();
+
+        // Colorindo o Jpanel
+        this.pnCabecalho.setBackground(Color.red);
+        this.pnRodape.setBackground(Color.blue);
+        this.pnEsquerda.setBackground(Color.yellow);
+        this.pnDireita.setBackground(Color.gray);
+        this.pnCentro.setBackground(Color.green);
+
+        // Adicionando a janela
+        this.add(pnCabecalho, BorderLayout.PAGE_START);
+        this.add(pnRodape, BorderLayout.PAGE_END);
+        this.add(pnEsquerda, BorderLayout.LINE_START);
+        this.add(pnDireita, BorderLayout.LINE_END);
+        this.add(pnCentro, BorderLayout.CENTER);
+
+    }
+}
