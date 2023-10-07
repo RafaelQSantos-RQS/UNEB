@@ -14,11 +14,13 @@ void TransactionName(int transacao); // Retorna a transação efetuada peelo clien
 int ChkCaixaVazio(); // Função que checa se há um caixa vazio e retorna a posição do caixa
 void PrintCaixa(); // Função para imprimir o caixa
 void AttCaixa(); // Função para atualizar a situação do caixa
+void PrintCronometro(int cron);
+void estatisticas(int total,int filaCheia,int atendimento,int espera);
 
 int main() {
     T_Fila_Est fila;
-    T_Item cliente;
-    int cronometro = 1, fimExpediente = 100, totalDeClientes = 0, clientesNaoAtendidos = 0,transacao, caixaVazio;
+    T_Item item;
+    int cronometro = 1, fimExpediente = 100, totalDeClientes = 0, clientesFilaCheia = 0,transacao, caixaVazio,espera = 0,cliente;
 
     // Iniciando a fila
     InitRow(&fila);
@@ -27,18 +29,51 @@ int main() {
     srand(time(NULL));
 
     // Loop da lógica principal
-    while(cronometro<=100){
-        PrintBanco();
+    while(cronometro<=fimExpediente){
         AttCaixa();
-        if(ClienteChegou() == 0){ // Verificando a chegada de cliente
+        PrintBanco();
+        PrintCronometro(cronometro);
+        if(ClienteChegou() == 0){ // Situação onde cliente chegou
+            item.dado = cronometro;
             printf("O cliente %d chegou!!\n",cronometro);
-            cliente.dado = cronometro;
-
+            if (append(&fila,item) == 0) {
+                printf("O cliente %d foi embora por causa de fila cheia...\n",cronometro);
+                clientesFilaCheia++;
+            } else {
+                printf("O cliente %d entrou na fila..\n",cronometro);
+                cliente = fila.data[fila.first].dado;
+                totalDeClientes++;
+            }
+            caixaVazio = ChkCaixaVazio();
+            if(caixaVazio != -1) { // Situação onde temos um caixa vazio
+                transacao = Transaction();
+                printf("O cliente %d saiu da fila e entrou no caixa para: ",fila.data[fila.first].dado);
+                TransactionName(transacao);
+                printf("\n");
+                caixa[caixaVazio] = transacao;
+                espera = espera + (cronometro - fila.data[fila.first].dado);
+                printf("Espera: %d\n",espera);
+                Remove(&fila);
+            }
+        } else {
+            printf("Nao chegou cliente!!\n",cronometro);
+            caixaVazio = ChkCaixaVazio();
+            if(caixaVazio != -1 && ChkEmptyRow(&fila) == 0) { // Situação onde temos um caixa vazio e gente na fila
+                transacao = Transaction();
+                printf("O cliente %d saiu da fila e entrou no caixa para: ",fila.data[fila.first].dado);
+                TransactionName(transacao);
+                printf("\n");
+                caixa[caixaVazio] = transacao;
+                espera = espera + (cronometro - fila.data[fila.first].dado);
+                printf("Espera: %d\n",espera);
+                Remove(&fila);
+            }
         }
         PrintCaixa();
         printRow(&fila);
         cronometro++;
     }
+    estatisticas(totalDeClientes,clientesFilaCheia,fimExpediente,espera);
     return 0;
 }
 
@@ -82,9 +117,7 @@ void TransactionName(int transacao) {
 }
 
 int ChkCaixaVazio(){
-    for(int i=0;i < sizeof(caixa)/sizeof(int);i++) {
-        if(caixa[i] == 0) return i;
-    }
+    for(int i=0;i < sizeof(caixa)/sizeof(int);i++) if(caixa[i] == 0) return i;
     return -1;
 }
 
@@ -106,4 +139,17 @@ void PrintBanco() {
     printf("\n\t#########\n");
     printf("\t# BANCO #\n");
     printf("\t#########\n");
+}
+
+void PrintCronometro(int cron) {
+    printf("Cronometro: %d\n",cron);
+}
+
+void estatisticas(int total,int filaCheia,int atendimento,int espera) {
+    float medio = (espera*1.0)/(total);
+    printf("\n\t## ESTATISTICAS ##\n");
+    printf("Tempo de Atendimento : %d\n",atendimento);
+    printf("Total de clientes : %d\n",total);
+    printf("Tempo total de espera : %d\n",espera);
+    printf("Tempo medio de espera : %.2f\n", medio);
 }
