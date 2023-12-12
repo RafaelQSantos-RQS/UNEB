@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "DynamicListLib.h"
+#define clear() printf("\033[H\033[J")
+#ifdef WIN32
+#define PAUSE 1
+#else
+#define PAUSE 0
+#endif
 
 int menu();
 
@@ -37,14 +43,14 @@ int main() {
             printf("REMOVENDO...\n");
             remover_do_inicio(&lista);
             printf("REMOVIDO...\n");
-            system("pause");
+            system("read -p \"Pressione enter para sair\" saindo");
             break;
         }
         case 5: {
             printf("REMOVENDO...\n");
             remover_do_fim(&lista);
             printf("REMOVIDO...\n");
-            system("pause");
+            system("read -p \"Pressione enter para sair\" saindo");
             break;
         }
         case 6: {
@@ -54,12 +60,12 @@ int main() {
             printf("REMOVENDO...\n");
             remover_pelo_indice(&lista,indice);
             printf("REMOVIDO...\n");
-            system("pause");
+            system("read -p \"Pressione enter para sair\" saindo");
             break;
         }
         case 7:{
             imprimir_lista(&lista);
-            system("pause");
+            system("read -p \"Pressione enter para sair\" saindo");
             break;
         }
         }
@@ -71,7 +77,7 @@ int main() {
 int menu() {
     int op;
     while(1){
-    system("cls");
+    clear();
     printf("\tSELECIONE O QUE DESEJA FAZER:\n");
     printf("1 - INSERIR NO INICIO\n");
     printf("2 - INSERIR NO FIM\n");
@@ -83,11 +89,11 @@ int menu() {
     printf("8 - FECHAR O PROGRAMA\n");
     scanf("%d",&op);
     if(op>0 && op<=8) {
-        system("cls");
+        clear();
         return op;
     }
-    printf("OPCAO INVALIDA!!! SELCIONE UMA ACEITAVEL\n");
-    system("pause");
-    system("cls");
+    printf("OPCAO INVALIDA!!! SELECIONE UMA ACEITAVEL\n");
+    system("read -p \"Pressione enter para sair\" saindo");
+    clear();
     }
 }

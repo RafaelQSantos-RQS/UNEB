@@ -28,7 +28,7 @@ int chkListaVazia(T_Lista *lista) {
     return lista->qtdeAtual == 0;
 }
 
-// Inserção no fundo
+// Inserï¿½ï¿½o no fundo
 void inserir_no_fim(T_Lista *lista, T_Item item) {
     T_No *novoNo = (T_No*)malloc(sizeof(T_No));
     novoNo->item = item;
@@ -44,7 +44,7 @@ void inserir_no_fim(T_Lista *lista, T_Item item) {
     lista->qtdeAtual++;
 }
 
-// Inserção na frente
+// Inserï¿½ï¿½o na frente
 void inserir_na_frente(T_Lista *lista, T_Item item) {
     T_No *novoNo = (T_No*)malloc(sizeof(T_No));
     novoNo->item = item;
@@ -60,17 +60,17 @@ void inserir_na_frente(T_Lista *lista, T_Item item) {
     lista->qtdeAtual++;
 }
 
-// Remoção do fim
+// Remoï¿½ï¿½o do fim
 void remover_do_fim(T_Lista *lista) {
     T_No *atual = lista->primeiro;
 
-    // Caso lista vazia: Exibe a mensagem de alerta e não efetua nenhum operação
+    // Caso lista vazia: Exibe a mensagem de alerta e nï¿½o efetua nenhum operaï¿½ï¿½o
     if (chkListaVazia(lista)) {
         printf("Lista vazia !! Nada a remover...\n");
         return;
     }
 
-    // Caso Lista unitária: Lista com apenas um elemento
+    // Caso Lista unitï¿½ria: Lista com apenas um elemento
     if (lista->primeiro->proximo == NULL) {
         free(lista->primeiro);
         lista->primeiro = NULL;
@@ -91,14 +91,13 @@ void remover_do_fim(T_Lista *lista) {
 }
 
 void remover_do_inicio(T_Lista *lista) {
-
-    // Caso lista vazia: Exibe a mensagem de alerta e não efetua nenhum operação
+    // Caso lista vazia: Exibe a mensagem de alerta e nï¿½o efetua nenhum operaï¿½ï¿½o
     if(chkListaVazia(lista)) {
         printf("\nLista vazia!! Nada a remover...\n");
         return;
     }
 
-    // Caso Lista unitária: Lista com apenas um elemento
+    // Caso Lista unitï¿½ria: Lista com apenas um elemento
     if (lista->primeiro->proximo == NULL) {
         free(lista->primeiro);
         lista->primeiro = NULL;
@@ -109,10 +108,11 @@ void remover_do_inicio(T_Lista *lista) {
 
     // Caso geral:
     T_No *auxiliar = lista->primeiro;
-    free(lista->primeiro);
     lista->primeiro = auxiliar->proximo;
+    free(auxiliar);
     lista->qtdeAtual--;
 }
+
 
 void remover_pelo_indice(T_Lista *lista, int indice) {
     // Verificando o indice
@@ -127,7 +127,7 @@ void remover_pelo_indice(T_Lista *lista, int indice) {
         return;
     }
 
-    // Caso Geral: Percorre até o nó anterior
+    // Caso Geral: Percorre atï¿½ o nï¿½ anterior
     T_No *anterior = lista->primeiro;
     for (int i = 0;i < indice-1;i++) anterior = anterior->proximo;
 
@@ -145,13 +145,13 @@ void remover_pelo_indice(T_Lista *lista, int indice) {
 }
 
 void inserir_pelo_indice(T_Lista *lista,T_Item item, int indice) {
-    // Verificação do indice
+    // Verificaï¿½ï¿½o do indice
     if (indice < 0 || indice > lista->qtdeAtual + 1) {
         printf("Indice invalido!! Nada a inserir...\n");
         return;
     }
 
-    // Caso especial: Inserção na primeiro posição
+    // Caso especial: Inserï¿½ï¿½o na primeiro posiï¿½ï¿½o
     if (indice == 0) {
         inserir_na_frente(lista,item);
         return;
